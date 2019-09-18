@@ -25,7 +25,10 @@ export class AppComponent implements OnInit {
   }
 
   public clickSave() {
-    alert('Danke ...');
+
+    this.backendConnectorService.addTrainingData({input: this.newInput, output: this.newOutput })
+      .subscribe();
+
   }
 
 }

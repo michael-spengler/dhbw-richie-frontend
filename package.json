@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --output-path docs"
+    "deploy": "ng build --prod --output-path docs && git add . && git commit -m 'auto commit'"
   },
   "private": true,
   "dependencies": {
