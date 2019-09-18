@@ -6,7 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class BackendConnectorService {
 
-  private backendURL = 'http://95.217.10.3';
+  // private backendURL = 'http://95.217.10.3';
+  private backendURL = 'https://95.217.10.3';
   // private backendURL = 'http://localhost:3000';
   public constructor(private http: HttpClient) {
 
