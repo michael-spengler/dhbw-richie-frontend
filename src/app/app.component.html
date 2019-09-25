@@ -1,46 +1,57 @@
 <div>
-  <h1>Welcome to {{ title }}!</h1>
-
-  <div>
-    <table>
-      <th>
-        Input
-      </th>
-      <th>
-        Output
-      </th>
-
-      <tr *ngFor="let trainingDataEntry of trainingData">
-        <td>
-          {{trainingDataEntry.input}}
-        </td>
-        <td>
-          {{trainingDataEntry.output}}
-        </td>
-      </tr>
-      <tr *ngIf="learningmode">
-        <td>
-          <input type="text" [(ngModel)]="newInput" placeholder="Bitte gib hier die neue Frage ein!">
-        </td>
-        <td>
-          <input type="text" [(ngModel)]="newOutput" placeholder="Bitte gib hier die neue Antwort ein!">
-        </td>
-      </tr>
-    </table>
+  <div class="landing">
+    <h1>Welcome to {{ title }}!</h1>
   </div>
 
-  <p><br></p>
-  <div *ngIf="learningmode">
+  <div class="content">
+    <div>
+      <table>
+        <th>
+          Input
+        </th>
+        <th>
+          Output
+        </th>
+
+        <tr *ngFor="let trainingDataEntry of trainingData">
+          <td>
+            {{ trainingDataEntry.input }}
+          </td>
+          <td>
+            {{ trainingDataEntry.output }}
+          </td>
+        </tr>
+        <tr *ngIf="learningmode">
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="newInput"
+              placeholder="Bitte gib hier die neue Frage ein!"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              [(ngModel)]="newOutput"
+              placeholder="Bitte gib hier die neue Antwort ein!"
+            />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <p><br /></p>
+    <div *ngIf="learningmode">
       <button (click)="clickSave()">
         Speichern
       </button>
     </div>
 
-  <div *ngIf="!learningmode">
-    <button (click)="clickLernWasNeues()">
-      Lern was Neues!!
-    </button>
+    <div *ngIf="!learningmode">
+      <button (click)="clickLernWasNeues()">
+        Lern was Neues!!
+      </button>
+    </div>
   </div>
-
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
