@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { BackendConnectorService } from './backend-connector.service';
 import { TrainingDataHelperService } from './training-data-helper.service';
 
+
+export interface ITrainingData {
+  input: string;
+  output: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,9 +23,19 @@ export class AppComponent implements OnInit {
   public trainingData = [];
 
   public constructor(private backendConnectorService: BackendConnectorService, private trainingDataHelper: TrainingDataHelperService) {}
+
+
   public ngOnInit() {
     this.backendConnectorService.getTrainingData()
-      .subscribe((result) => this.trainingData = result );
+      .subscribe((result) => {
+        this.trainingData = result;
+        alert(this.trainingData.length);
+        this.trainingData = this.trainingDataHelper.removeDuplicates(this.trainingData);
+        alert(this.trainingData.length);
+
+      } );
+
+
   }
   public clickLernWasNeues() {
     this.learningmode = true;
