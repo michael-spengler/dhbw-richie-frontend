@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendConnectorService } from './backend-connector.service';
+import { TrainingDataHelperService } from './training-data-helper.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
   public newOutput = '';
   public trainingData = [];
 
-  public constructor(private backendConnectorService: BackendConnectorService) {}
+  public constructor(private backendConnectorService: BackendConnectorService, private trainingDataHelper: TrainingDataHelperService) {}
   public ngOnInit() {
     this.backendConnectorService.getTrainingData()
       .subscribe((result) => this.trainingData = result );
@@ -24,10 +25,25 @@ export class AppComponent implements OnInit {
     this.learningmode = true;
   }
 
+
   public clickSave() {
 
-    this.backendConnectorService.addTrainingData({input: this.newInput, output: this.newOutput })
-      .subscribe();
+    const isDuplicate = this.trainingDataHelper.checkForDuplicates(this.newInput, this.trainingData);
+
+    if (isDuplicate === false) {
+
+      this.backendConnectorService.addTrainingData({input: this.newInput, output: this.newOutput })
+      .subscribe(() => {
+        this.backendConnectorService.getTrainingData()
+        .subscribe((result) => this.trainingData = result );
+      });
+    } else {
+      alert('Hey. Den Input kenne ich doch schon');
+    }
+
+    this.newInput = '';
+    this.newOutput = '';
+
 
   }
 
