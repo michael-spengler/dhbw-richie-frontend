@@ -1,34 +1,29 @@
-import { Injectable } from '@angular/core';
-import { ITrainingData } from './app.component';
+import { Injectable } from "@angular/core";
+import { ITrainingData } from "./app.component";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TrainingDataHelperService {
+  constructor() {}
 
-  constructor() { }
-
-  public checkForDuplicates(input: string, trainingData: ITrainingData[]): boolean {
-
-    for (const trainingDataEntry of trainingData) {
-      if (trainingDataEntry.input === input) {
-        return true;
-      }
-    }
-    return false;
+  public checkForDuplicates(
+    input: string,
+    trainingData: ITrainingData[]
+  ): boolean {
+    return trainingData.some(s => s.input === input);
   }
 
   public removeDuplicates(trainingData: any[]) {
-
     const uniqueEntries = [];
 
-    /// uniqueEntries.some((entry: ITrainingData) => entry.input === );
-
-    // for (const entry of trainingData) {
-    //   if (uniqueEntries.indexOf(entry)) {
-    //     uniqueEntries.push(entry);
-    //   }
-    // }
+    trainingData.forEach(t => {
+      if (
+        !uniqueEntries.some(u => u.input === t.input && u.output === t.output)
+      ) {
+        uniqueEntries.push(t);
+      }
+    });
 
     return uniqueEntries;
   }
